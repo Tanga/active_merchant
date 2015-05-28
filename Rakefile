@@ -12,7 +12,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rubygems/package_task'
 require 'support/gateway_support'
-require 'support/ssl_verify' 
+require 'support/ssl_verify'
 require 'support/outbound_hosts'
 
 desc "Run the unit test suite"
@@ -41,7 +41,7 @@ end
 desc "Delete tar.gz / zip"
 task :cleanup => [ :clobber_package ]
 
-spec = eval(File.read('activemerchant.gemspec'))
+spec = eval(File.read('tanga_activemerchant.gemspec'))
 
 Gem::PackageTask.new(spec) do |p|
   p.gem_spec = spec
@@ -65,34 +65,34 @@ namespace :gateways do
     support = GatewaySupport.new
     support.to_s
   end
-  
+
   namespace :print do
     desc 'Print the currently supported gateways in RDoc format'
     task :rdoc do
       support = GatewaySupport.new
       support.to_rdoc
     end
-  
+
     desc 'Print the currently supported gateways in Textile format'
     task :textile do
       support = GatewaySupport.new
       support.to_textile
     end
-    
+
     desc 'Print the gateway functionality supported by each gateway'
     task :features do
       support = GatewaySupport.new
       support.features
     end
   end
-  
+
   desc 'Print the list of destination hosts with port'
   task :hosts do
     OutboundHosts.list
   end
- 
+
   desc 'Test that gateways allow SSL verify_peer'
   task :ssl_verify do
     SSLVerify.new.test_gateways
-  end 
+  end
 end
