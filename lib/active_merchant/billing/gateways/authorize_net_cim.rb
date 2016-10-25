@@ -841,7 +841,14 @@ module ActiveMerchant #:nodoc:
 
         response_params = parse(action, xml)
 
-        message = response_params['messages']['message']['text']
+        message = nil
+        begin
+          message = response_params['messages']['message']['text']
+        rescue TypeError => e
+          TangaServices.logger.error(service: 'authnet', alert_tanga_devs: true, authnet_response: xml.to_s, exception: e.message)
+          raise
+        end
+
         test_mode = test? || message =~ /Test Mode/
         success = response_params['messages']['result_code'] == 'Ok'
         response_params['direct_response'] = parse_direct_response(response_params['direct_response']) if response_params['direct_response']
