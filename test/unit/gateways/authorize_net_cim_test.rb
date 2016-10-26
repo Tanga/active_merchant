@@ -614,6 +614,10 @@ class AuthorizeNetCimTest < Test::Unit::TestCase
             <code>I00001</code>
             <text>Successful.</text>
           </message>
+          <message>
+            <code>whatevers</code>
+            <text>weird stuff here</text>
+          </message>
         </messages>
         <customerProfileId>#{@customer_profile_id}</customerProfileId>
       </createCustomerProfileResponse>

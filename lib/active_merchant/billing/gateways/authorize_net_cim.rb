@@ -843,7 +843,7 @@ module ActiveMerchant #:nodoc:
 
         message = nil
         begin
-          message = response_params['messages']['message']['text']
+          message = Array.wrap(response_params['messages']['message']).first['text']
         rescue TypeError => e
           TangaServices.logger.error(service: 'authnet', alert_tanga_devs: true, authnet_response: xml.to_s, exception: e.message)
           raise
